@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% set title = 'daftar mahasiswa' %}
+{% set page_active = 'daftar_mahasiswa' %}
+{% block _content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>ini adalah halaman mahasiswa</h1>
+        </div>
+        <div class="col-12">
+            <a href="{{ url_for('mahasiswa.tambah_mahasiswa') }}" class="btn btn-primary">tambah mahasiswa</a>
+            <table class="table">
+                <tr>
+                    <th>Nama Lengkap</th>
+                    <th>Jurusan</th>
+                    <th>Email</th>
+                    <th>Umur</th>
+                    <th>Fakultas</th>
+                    <th>action</th>
+                    <th>status</th>
+                </tr>
+                {% for mhs in mahasiswa %}
+                <tr>
+                    <td>{{ mhs.nama_lengkap }}</td>
+                    <td>{{ mhs.jurusan }}</td>
+                    <td>{{ mhs.email }}</td>
+                    <td>{{ mhs.umur }}</td>
+                    <td>{{ mhs.fakultas }}</td>
+                    <td>
+                        <a href="{{ url_for('mahasiswa.edit_mahasiswa',uid=mhs.id) }}"class="btn btn-secondary btn-sm">Edit</a>
+                    </td>
+                    <td>
+                        {% if mhs.status == 'lulus' %}
+                        <span class="badge badge-success">lulus</span>
+                        {% else %}
+                        <span class="badge badge-danger">Tidak lulus</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
